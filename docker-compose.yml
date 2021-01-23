@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  # SEQ Log Server
+  seq:
+    image: datalust/seq:latest
+    restart: always
+    # volumes:
+    #   - ../seq-data:/data
+    ports:
+      - "5341:80"
+    # env_file:
+    #   - .env
+    environment:
+      - ACCEPT_EULA=Y
+      # - SEQ_API_CANONICALURI=https://${HOST}
+      # - LETSENCRYPT_HOST=${HOST}
+      # - VIRTUAL_HOST=${HOST}
+      # - VURTUAL_PORT=5341
+    # networks:
+      # - proxy-tier
+
+  # Accepts GELF format messages via UDP or TCP and writes them to Seq
+  seq-input-gelf:
+    image: datalust/seq-input-gelf:latest
+    depends_on:
+      - seq
+    restart: always
+    ports:
+      - "12201-12201:12201"
+      - "12201:12201/udp"
+    environment:
+      - SEQ_ADDRESS=http://seq:5341
+      - GELF_ENABLE_DIAGNOSTICS=True
+
+# networks:
+#   proxy-tier:
+#     external: true
+#     name: proxy-tier
