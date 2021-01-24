@@ -47,7 +47,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${BACKUP_FOLDER}:/backup
-      - ./shellScript:/script:ro
     environment:
       - JOB_NAME1=Backup
       - JOB_COMMAND1=/bin/bash /script/backup.sh && /bin/bash /script/upload.sh

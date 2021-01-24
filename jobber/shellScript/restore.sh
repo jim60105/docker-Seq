@@ -4,8 +4,8 @@ date +"%F %T"
 scriptFolder="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Move to backup folder
-mkdir -p /backup_seq
-cd /backup_seq
+mkdir -p /backup
+cd /backup
 
 source ${scriptFolder}/stopContainer.sh
 
