@@ -1,9 +1,14 @@
 version: '3.7'
 
+x-labels:
+  labels: &default-label
+    seq:
+
 services:
   # SEQ Log Server
   seq:
     image: datalust/seq:latest
+    labels: *default-label
     restart: always
     volumes:
       - seq-data:/data
@@ -22,20 +27,46 @@ services:
   # Accepts GELF format messages via UDP or TCP and writes them to Seq
   seq-input-gelf:
     image: datalust/seq-input-gelf:latest
+    labels: *default-label
     depends_on:
       - seq
     restart: always
     ports:
-      - "12201-12201:12201"
-      - "12201:12201/udp"
+      - '12201-12201:12201'
+      - '12201:12201/udp'
     environment:
       - SEQ_ADDRESS=http://seq:5341
       # - GELF_ENABLE_DIAGNOSTICS=True
 
+  # Backup
+  jobber:
+    build: ./jobber
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${BACKUP_FOLDER}:/backup
+      - ./shellScript:/script:ro
+    environment:
+      - JOB_NAME1=Backup
+      - JOB_COMMAND1=/bin/bash /script/backup.sh && /bin/bash /script/upload.sh
+      - JOB_TIME1=0 0 0 * * 2 #Exec per Week at UTC Tue. 0 a.m.
+      - JOB_NOTIFY_ERR1=true
+      - JOB_NOTIFY_FAIL1=true
+      - BACKUP_LABEL=seq
+    secrets:
+      - rsyncpass
+
 volumes:
   seq-data:
+    labels: *default-label
 
 networks:
   proxy-tier:
     external: true
     name: proxy-tier
+
+secrets:
+  rsyncpass:
+    file: ~/ssh.pas
