@@ -8,13 +8,13 @@ WWW\
 ├ Reverse Proxy (nginx Server) (SSL證書申請、Renew)\
 │ ├ Seq (Log Server)\
 │ │ └ Jobber (Cron) (定時備份Docker volume，備份完送至rsync server) \
-└ Seq-input-gelf (Input Server)
+└ Seq-input-gelf (GELF input bridge Server)
 
 ## 部屬
 1. 請參考`.env_sample`建立`.env`
 	* LETSENCRYPT_EMAIL=你的email
 	* HOST=你的Seq UI網址
-	* BACKUP_FOLDER=備份路徑
+	* BACKUP_FOLDER=備份路徑，**必須使用絕對路徑**
 	* BACKUP_RSYNC_URI=rsync server路徑
 	* BACKUP_RSYNC_PORT=rsync server ssh port
 2. rsync ssh passwd 明碼放在 `/root/ssh.pas`，chown root，chmod 600
