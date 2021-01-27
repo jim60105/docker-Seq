@@ -11,7 +11,7 @@ services:
     labels: *default-label
     restart: always
     volumes:
-      - seq-data:/data
+      - seq:/data
     env_file:
       - .env
     environment:
@@ -38,7 +38,6 @@ services:
       - SEQ_ADDRESS=http://seq:5341
       # - GELF_ENABLE_DIAGNOSTICS=True
 
-  # Backup
   jobber:
     build: ./jobber
     restart: always
@@ -58,7 +57,7 @@ services:
       - rsyncpass
 
 volumes:
-  seq-data:
+  seq:
     labels: *default-label
 
 networks:
