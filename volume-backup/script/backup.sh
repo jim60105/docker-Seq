@@ -16,7 +16,10 @@ V=$(su - root -c "docker volume ls -f 'label=${BACKUP_LABEL}' -q")
 for i in ${V}
 do
     echo "Backup ${i}..." | tee -a /backup/log.txt
-    su - root -c "docker run -v ${i}:/volume -v '${BACKUP_FOLDER}':/backup --rm loomchild/volume-backup backup -c gz ${i} | tee -a /backup/log.txt"
+
+    # volume-backup.sh from base image
+    # https://github.com/loomchild/volume-backup/blob/master/volume-backup.sh
+    su - root -c "/volume-backup.sh backup -c gz ${i} | tee -a /backup/log.txt"
 done
 
 echo "" >> /backup/log.txt
