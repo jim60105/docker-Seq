@@ -58,6 +58,9 @@ services:
 
   backup:
     build: ./volume-backup
+    depends_on:
+      - seq
+      - seq-input-gelf
     restart: "no"
     env_file:
       - .env
@@ -69,7 +72,9 @@ services:
       - BACKUP_LABEL=seq
     secrets:
       - rsyncpass
-    command: /bin/bash /script/backup.sh && /bin/bash /script/upload.sh
+    command: >
+      /bin/bash -c "/bin/bash /script/backup.sh && 
+                    /bin/bash /script/upload.sh"
 
 volumes:
   seq:
