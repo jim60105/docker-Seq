@@ -73,11 +73,7 @@ services:
       - ${BACKUP_FOLDER}:/backup
     environment:
       - BACKUP_LABEL=seq
-    secrets:
-      - rsyncpass
-    command: >
-      /bin/bash -c "/bin/bash /script/backup.sh && 
-                    /bin/bash /script/upload.sh"
+    command: /bin/bash /script/backup.sh
 
 volumes:
   seq:
@@ -87,7 +83,3 @@ networks:
   proxy-tier:
     external: true
     name: proxy-tier
-
-secrets:
-  rsyncpass:
-    file: ~/ssh.pas
