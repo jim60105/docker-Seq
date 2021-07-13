@@ -1,5 +1,7 @@
-Seq使用遵照 [Seq End-User License Agreement](https://datalust.co/doc/eula-current.pdf)，解釋請參考 [Seq Pricing](https://datalust.co/pricing)
-其餘部份(docker-compose file & jobber)為MIT LICENSE
+# LICENSE
+
+Seq使用遵照 [Seq End-User License Agreement](https://datalust.co/doc/eula-current.pdf)，解釋請參考 [Seq Pricing](https://datalust.co/pricing)\
+其餘部份(docker-compose file & jobber & backup)為MIT LICENSE
 
 MIT License
 

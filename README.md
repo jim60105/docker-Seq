@@ -25,11 +25,11 @@ Reverse Proxy (nginx Server) (SSL證書申請、Renew)\
 ## 部屬
 
 1. 請參考`.env_sample`建立`.env`
-    * LETSENCRYPT_EMAIL=你的email
-    * HOST=你的Seq UI網址
-    * BACKUP_FOLDER=備份路徑，**必須使用絕對路徑**
-    * BACKUP_RSYNC_URI=rsync server資訊: `帳號@網址::路徑`
-    * BACKUP_RSYNC_PORT=rsync server ssh port
+    * `LETSENCRYPT_EMAIL`: 你的email
+    * `HOST`: 你的Seq UI網址
+    * `BACKUP_FOLDER`: 備份路徑
+    * `BACKUP_RSYNC_URI`: rsync server URI `帳號@網址::路徑`
+    * `BACKUP_RSYNC_PORT`: rsync server ssh port
 1. rsync ssh passwd 明碼放在 `/root/ssh.pas`，chown root，chmod 600
 1. `docker-compose up -d`
 1. 都正常後修改 `.env` 中的 `LETSENCRYPT_TEST`為`false`再重新up，此設定為SSL測試證書
