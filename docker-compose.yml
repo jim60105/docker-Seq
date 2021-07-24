@@ -34,6 +34,7 @@ services:
       - seq
     restart: always
     ports:
+      # https://github.com/docker/compose/issues/7627
       - '12201-12201:12201'
       - '12201:12201/udp'
     environment:
