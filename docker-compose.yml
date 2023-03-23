@@ -34,11 +34,11 @@ services:
       - seq
     restart: always
     ports:
-      # https://github.com/docker/compose/issues/7627
-      - '12201-12201:12201'
       - '12201:12201/udp'
     environment:
       - SEQ_ADDRESS=http://seq:5341
+      # - SEQ_API_KEY=
+      # - GELF_ADDRESS=udp://0.0.0.0:12201
       # - GELF_ENABLE_DIAGNOSTICS=True
 
   jobber:
