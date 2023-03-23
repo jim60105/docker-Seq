@@ -15,6 +15,7 @@ services:
     env_file:
       - .env
     ports:
+      # - 5566:5341 # Example for port changing
       - 5341
     environment:
       - ACCEPT_EULA=Y
@@ -34,6 +35,7 @@ services:
       - seq
     restart: always
     ports:
+      # - '12345:12201/udp' # Example for port changing
       - '12201:12201/udp'
     environment:
       - SEQ_ADDRESS=http://seq:5341
